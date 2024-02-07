@@ -1,8 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   client.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: baarif <baarif@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/06 08:56:51 by baarif            #+#    #+#             */
+/*   Updated: 2024/02/07 08:06:59 by baarif           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf/ft_printf.h"
 #include <signal.h>
-void fire_handler(size_t pid, char c)
+
+void	fire_handler(size_t pid, char c)
 {
-	int i;
+	int	i;
 
 	i = 8;
 	while (i--)
@@ -15,31 +28,30 @@ void fire_handler(size_t pid, char c)
 	}
 }
 
-void receive_handler(int num)
+void	receive_handler(int num)
 {
 	if (num == SIGUSR1)
 		ft_printf("Acknowledged\n");
 }
 
-int main(int ac, char *av[])
-{	
-	size_t	 pid;
-	char	*string;
-	int	i;
+int	main(int ac, char *av[])
+{
+	size_t		pid;
+	char		*string;
+	int			i;
 
-	if (ac !=3)
-		return (ft_printf("Can only accept 3 arguments\n"),0);
+	if (ac != 3)
+		return (ft_printf("Can only accept 3 arguments\n"), 0);
 	i = 0;
-	pid =  atoi(av[1]);
+	pid = ft_atoi(av[1]);
 	if ((pid > 500000) | !pid)
-		return (ft_printf("Invalid PID range\n"),0);
+		return (ft_printf("Invalid PID range\n"), 0);
 	string = av[2];
-	signal(SIGUSR1,receive_handler);
+	signal(SIGUSR1, receive_handler);
 	while (string[i])
 	{
 		fire_handler(pid, string[i]);
 		i++;
 	}
 	fire_handler(pid, string[i]);
-
 }

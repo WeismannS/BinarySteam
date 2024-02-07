@@ -2,7 +2,7 @@ SOURCES= server.c client.c
 OBJECTS= $(SOURCES:.c=.o)
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
-LIBFTPRINTF_PATH = ft_printf
+LIBFTPRINTF_PATH = ft_printf_bonus
 LIBFTPRINTF_LIB = $(LIBFTPRINTF_PATH)/libftprintf.a
 
 all: server client
